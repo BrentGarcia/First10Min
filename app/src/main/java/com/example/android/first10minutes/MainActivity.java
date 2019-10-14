@@ -15,8 +15,20 @@ public class MainActivity extends AppCompatActivity {
     private CountDownTimer countDownTimer;
 
     Button startButton;
+    Button musicButton;
 
     CheckBox openBlindsCheckBox;
+    CheckBox brushTeethCheckBox;
+    CheckBox pushUpsCheckBox;
+    CheckBox pullUpsCheckBox;
+    CheckBox drinkWaterCheckBox;
+    CheckBox clothingPreppedCheckBox;
+    CheckBox makeBedCheckBox;
+    CheckBox startShowerCheckBox;
+
+    private boolean complete;
+
+
 
     TextView timeRemainingTextView;
 
@@ -33,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         openBlindsCheckBox = (CheckBox) findViewById(R.id.openBlindsCheckBox);
+        brushTeethCheckBox = (CheckBox) findViewById(R.id.brushTeethCheckBox);
+        pushUpsCheckBox = (CheckBox) findViewById(R.id.pushUpsCheckBox);
+        pullUpsCheckBox = (CheckBox) findViewById(R.id.pullUpsCheckBox);
+        drinkWaterCheckBox = (CheckBox) findViewById(R.id.drinkWaterCheckBox);
+        clothingPreppedCheckBox = (CheckBox) findViewById(R.id.clothingPreppedCheckBox);
+        makeBedCheckBox = (CheckBox) findViewById(R.id.makeBedCheckBox);
+        startShowerCheckBox = (CheckBox) findViewById(R.id.startShowerCheckBox);
+
+
+
         timeRemainingTextView = (TextView) findViewById(R.id.timeRemainingTextView);
         startButton = (Button) findViewById(R.id.startButton);
 
@@ -54,20 +76,34 @@ public class MainActivity extends AppCompatActivity {
                         int m = (int)(timeLeftInMillis/(1000*60)) % 60;
 
                         //Print Time Remaining
-
                         String timeLeftFormatted = String.format("%02d:%02d", m, s);
                         timeRemainingTextView.setText(timeLeftFormatted);
+
+                        //Check if all tasks complete
+                        checkIfComplete();
+
+                        if (complete){
+                            timeRemainingTextView.setText("Tasks Complete!");
+                        }
                     }
 
                     @Override
                     public void onFinish() {
-                        timeRemainingTextView.setText("You done!");
+                        timeRemainingTextView.setText("Ran out of time!");
                     }
                 }.start();
 
                 timerRunning = true;
             }
         });
+    }
 
+    private void checkIfComplete() {
+        if (openBlindsCheckBox.isChecked() && brushTeethCheckBox.isChecked()
+        && pushUpsCheckBox.isChecked() && pullUpsCheckBox.isChecked()
+        && drinkWaterCheckBox.isChecked() && clothingPreppedCheckBox.isChecked()
+        && makeBedCheckBox.isChecked() && startShowerCheckBox.isChecked()){
+            complete = true;
+        }
     }
 }
