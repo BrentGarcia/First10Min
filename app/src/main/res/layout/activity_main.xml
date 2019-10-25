@@ -38,7 +38,7 @@
         android:text="Brush Teeth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/startShowerCheckBox" />
+        app:layout_constraintTop_toBottomOf="@+id/drinkWaterCheckBox" />
 
     <CheckBox
         android:id="@+id/pushUpsCheckBox"
@@ -91,16 +91,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pushUpsCheckBox" />
 
-    <CheckBox
-        android:id="@+id/startShowerCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Start Shower"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/drinkWaterCheckBox" />
-
     <TextView
         android:id="@+id/timeRemainingTextView"
         android:layout_width="wrap_content"
@@ -112,6 +102,16 @@
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/beginMeditationCheckBox" />
+
+    <CheckBox
+        android:id="@+id/beginMeditationCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Begin Meditation"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/brushTeethCheckBox" />
 
@@ -125,7 +125,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.529"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/brushTeethCheckBox" />
+        app:layout_constraintTop_toBottomOf="@+id/beginMeditationCheckBox" />
+
+    <TextView
+        android:id="@+id/currentStreakTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Current Streak: "
+        android:textSize="12dp"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.761" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

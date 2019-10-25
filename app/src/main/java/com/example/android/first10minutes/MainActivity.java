@@ -2,13 +2,16 @@ package com.example.android.first10minutes;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,19 +27,26 @@ public class MainActivity extends AppCompatActivity {
     CheckBox drinkWaterCheckBox;
     CheckBox clothingPreppedCheckBox;
     CheckBox makeBedCheckBox;
-    CheckBox startShowerCheckBox;
-
-    private boolean complete;
-
-
+    CheckBox beginMeditationCheckBox;
 
     TextView timeRemainingTextView;
+    TextView currentStreakTextView;
 
+    private boolean complete;
     private boolean timerRunning;
 
-    private static final long START_TIME_IN_MILLIS = 600000;
+    private String currentStreakText;
+    private boolean completeYesNo;
+    private int currentStreak;
+    private int loadStreak;
 
+    private static final long START_TIME_IN_MILLIS = 600000;
     private long timeLeftInMillis = START_TIME_IN_MILLIS;
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String CURRENT_STREAK_TEXT = "Current Streak: ";
+    public static final String COMPLETE = "complete";
+    public static final String CURRENT_STREAK = "streak";
 
 
     @Override
@@ -51,10 +61,10 @@ public class MainActivity extends AppCompatActivity {
         drinkWaterCheckBox = (CheckBox) findViewById(R.id.drinkWaterCheckBox);
         clothingPreppedCheckBox = (CheckBox) findViewById(R.id.clothingPreppedCheckBox);
         makeBedCheckBox = (CheckBox) findViewById(R.id.makeBedCheckBox);
-        startShowerCheckBox = (CheckBox) findViewById(R.id.startShowerCheckBox);
+        beginMeditationCheckBox = (CheckBox) findViewById(R.id.beginMeditationCheckBox);
 
 
-
+        currentStreakTextView =  (TextView) findViewById(R.id.currentStreakTextView);
         timeRemainingTextView = (TextView) findViewById(R.id.timeRemainingTextView);
         startButton = (Button) findViewById(R.id.startButton);
 
@@ -84,26 +94,68 @@ public class MainActivity extends AppCompatActivity {
 
                         if (complete){
                             timeRemainingTextView.setText("Tasks Complete!");
+                            saveData();
+                            cancel();
                         }
                     }
 
                     @Override
                     public void onFinish() {
+                        complete = false;
                         timeRemainingTextView.setText("Ran out of time!");
+                        saveData();
                     }
                 }.start();
 
                 timerRunning = true;
             }
         });
+
+        loadData();
+        updateViews();
     }
 
     private void checkIfComplete() {
         if (openBlindsCheckBox.isChecked() && brushTeethCheckBox.isChecked()
         && pushUpsCheckBox.isChecked() && pullUpsCheckBox.isChecked()
         && drinkWaterCheckBox.isChecked() && clothingPreppedCheckBox.isChecked()
-        && makeBedCheckBox.isChecked() && startShowerCheckBox.isChecked()){
+        && makeBedCheckBox.isChecked() && beginMeditationCheckBox.isChecked()){
             complete = true;
         }
+    }
+
+    private void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        currentStreak++;
+
+        if (!complete){
+            currentStreak = 0;
+        }
+
+        editor.putInt(CURRENT_STREAK, currentStreak);
+        editor.putString(CURRENT_STREAK_TEXT, "Current Streak: " + currentStreak);
+
+        editor.apply();
+
+        Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+
+//        text = sharedPreferences.getString(TEXT, "");
+//        completeYesNo = sharedPreferences.getBoolean(COMPLETE, false);
+        currentStreakText = sharedPreferences.getString(CURRENT_STREAK_TEXT, "");
+        loadStreak = sharedPreferences.getInt(CURRENT_STREAK, 0);
+
+    }
+
+    public void updateViews() {
+//        timeRemainingTextView.setText(text);
+//        complete = completeYesNo;
+        currentStreakTextView.setText(currentStreakText);
+        currentStreak = loadStreak;
+
     }
 }
