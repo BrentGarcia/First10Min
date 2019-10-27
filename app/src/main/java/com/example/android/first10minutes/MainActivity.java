@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     CheckBox pushUpsCheckBox;
     CheckBox pullUpsCheckBox;
     CheckBox drinkWaterCheckBox;
+    CheckBox startCoffeeCheckBox;
     CheckBox clothingPreppedCheckBox;
     CheckBox makeBedCheckBox;
     CheckBox beginMeditationCheckBox;
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         pushUpsCheckBox = (CheckBox) findViewById(R.id.pushUpsCheckBox);
         pullUpsCheckBox = (CheckBox) findViewById(R.id.pullUpsCheckBox);
         drinkWaterCheckBox = (CheckBox) findViewById(R.id.drinkWaterCheckBox);
+        startCoffeeCheckBox = (CheckBox) findViewById(R.id.startCoffeeCheckBox);
         clothingPreppedCheckBox = (CheckBox) findViewById(R.id.clothingPreppedCheckBox);
         makeBedCheckBox = (CheckBox) findViewById(R.id.makeBedCheckBox);
         beginMeditationCheckBox = (CheckBox) findViewById(R.id.beginMeditationCheckBox);
@@ -119,7 +121,8 @@ public class MainActivity extends AppCompatActivity {
         if (openBlindsCheckBox.isChecked() && brushTeethCheckBox.isChecked()
         && pushUpsCheckBox.isChecked() && pullUpsCheckBox.isChecked()
         && drinkWaterCheckBox.isChecked() && clothingPreppedCheckBox.isChecked()
-        && makeBedCheckBox.isChecked() && beginMeditationCheckBox.isChecked()){
+        && makeBedCheckBox.isChecked() && beginMeditationCheckBox.isChecked()
+        && startCoffeeCheckBox.isChecked()){
             complete = true;
         }
     }
